@@ -4,7 +4,7 @@
                 android:orientation="vertical"
                 android:fitsSystemWindows="true"
                 android:clipToPadding="true"
-                android:background="@drawable/login_bac"
+                android:background="@drawable/login_bg"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 

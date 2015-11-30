@@ -10,19 +10,31 @@ import android.widget.TextView;
 
 import com.example.administrator.newtest.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import model.Prodect;
 
 public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.MasonryView>{
-    private List<Prodect> mData;
+    private List mData;
     private MyInterface mOnItemClickLitener;
     public void setOnItemClickLitener(MyInterface mOnItemClickLitener) {
         this.mOnItemClickLitener = mOnItemClickLitener;
     }
 
-    public RecycleViewAdapter(List<Prodect> list) {
-        mData=list;
+    public RecycleViewAdapter(List<?> list) {
+        if (list!=null){
+            mData=list;
+        }else {
+            mData=new ArrayList<>();
+        }
+    }
+
+    public void appendData(List<?> list){
+        mData.addAll(list);
+    }
+    public void clearData(){
+        mData.clear();
     }
 
     @Override
@@ -31,10 +43,16 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
         return new MasonryView(view);
     }
 
+    /**
+     * this is listview getview
+     * @param masonryView
+     * @param position
+     */
     @Override
     public void onBindViewHolder(final MasonryView masonryView, final int position) {
 //        masonryView.imageView.setImageResource(products.get(position).img);
-        masonryView.textView.setText(mData.get(position).name);
+        Prodect prodect= (Prodect) mData.get(position);
+        masonryView.textView.setText(prodect.name);
         //定义接口的回调
         if (mOnItemClickLitener != null){
             masonryView.itemView.setOnClickListener(new View.OnClickListener() {
