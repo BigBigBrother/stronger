@@ -46,7 +46,7 @@ public class AllUtils {
 	private static final String TAG = "Utils";
 	
 	/**
-	 * 判断是否为空
+	 * 判断是否为空2
 	 * @param str
 	 * @return
 	 */
