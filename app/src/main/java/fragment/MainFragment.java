@@ -10,14 +10,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Adapter;
+import android.widget.Toast;
 
 import com.example.administrator.newtest.R;
 
 import java.util.ArrayList;
 
+import MyAdapter.MyInterface;
 import MyAdapter.RecycleViewAdapter;
-import Utils.SpacesItemDecoration;
+import MyAdapter.SpacesItemDecoration;
 import model.Prodect;
 
 /**
@@ -51,7 +52,17 @@ public class MainFragment extends BaseFragment{
         mRecyclerView.addItemDecoration(decoration);
         mAdapter=new RecycleViewAdapter(mData);
         mRecyclerView.setAdapter(mAdapter);
+        mAdapter.setOnItemClickLitener(new MyInterface() {
+            @Override
+            public void onItemClick(View view, int position) {
+                Toast.makeText(getActivity(),"点击Recy",Toast.LENGTH_SHORT).show();
+            }
 
+            @Override
+            public void onItemLongClick(View view, int position) {
+                Toast.makeText(getActivity(),"长按Recy",Toast.LENGTH_SHORT).show();
+            }
+        });
         mSwipeRefreshLayout= (SwipeRefreshLayout) view.findViewById(R.id.fragment_main_refreshLayout);
         mSwipeRefreshLayout.setColorSchemeColors(getResources().getColor(R.color.colorAccent),getResources().getColor(R.color.colorPrimary),getResources().getColor(R.color.holo_green_light));
         mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
