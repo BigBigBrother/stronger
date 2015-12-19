@@ -1,8 +1,10 @@
 package com.example.administrator.newtest;
 
+import android.animation.ObjectAnimator;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -18,15 +20,19 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.WindowManager;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+
 import fragment.MainFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener {
 
+    private String image_url="http://a.hiphotos.baidu.com/image/pic/item/34fae6cd7b899e512f76cec546a7d933c9950d62.jpg";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -38,6 +44,9 @@ public class MainActivity extends AppCompatActivity
             }
         });
 
+
+
+
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -47,11 +56,28 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        View view =navigationView.getHeaderView(0);
+        SimpleDraweeView simpleDraweeView= (SimpleDraweeView) view.findViewById(R.id.nav_header_image);
+        simpleDraweeView.setAspectRatio(1.0f);//设置宽高比ß
+        simpleDraweeView.setImageURI(Uri.parse(image_url));
+        simpleDraweeView.setOnClickListener(this);
+
+
         FragmentManager manager=getFragmentManager();
         FragmentTransaction transaction=manager.beginTransaction();
         Fragment fragment=new MainFragment();
         transaction.add(R.id.fl_main,fragment);
         transaction.commit();
+    }
+
+
+    /**
+     * 属性动画   渐变效果
+     */
+    private void mObjectAnimation(View view){
+        ObjectAnimator objectAnimator=ObjectAnimator.ofFloat(view,"alpha",0f,1f);
+        objectAnimator.setDuration(1000);
+        objectAnimator.start();
     }
 
     @Override
@@ -111,5 +137,14 @@ public class MainActivity extends AppCompatActivity
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.nav_header_image:
+
+                break;
+        }
     }
 }

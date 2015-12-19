@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/title_left_btn"
         android:layout_centerVertical="true"
-        android:text="< 返回"
+        android:text="返回"
         android:textColor="@color/red"
         android:background="@color/blanchedalmond"/>
 
