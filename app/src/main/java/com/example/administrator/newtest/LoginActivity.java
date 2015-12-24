@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 
@@ -12,12 +13,15 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import Utils.AllUtils;
 import Utils.Constant;
 import Utils.PreferenceUtils;
+import cn.smssdk.EventHandler;
+import cn.smssdk.SMSSDK;
 
 /**
  * Created by Administrator on 2015/11/24.
  */
 public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
+    private static final String TAG = "LoginActivity";
     private MaterialEditText et_userName, et_uesrPwd;
 
     @Override
@@ -32,8 +36,14 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             //getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         }
 
+
+
         findViews();
     }
+
+
+
+
 
     private void findViews() {
         et_userName = (MaterialEditText) findViewById(R.id.et_login_user_name);
@@ -83,8 +93,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
                 break;
             case R.id.tv_forgot_pwd://find pwd
-//                intent.setClass(this,MainActivity.class);
-//                startActivity(intent);
+                intent.setClass(this,FindPwdActivity.class);
+                startActivity(intent);
+                this.finish();
                 break;
         }
     }
