@@ -90,10 +90,10 @@ public class FindPwdActivity extends BaseActivity implements View.OnClickListene
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.find_pwd_bt_vertify:
-                SMSSDK.getVerificationCode("86", mPhone.getText().toString().trim());
+                SMSSDK.getVerificationCode("86", mPhone.getText().toString().trim());//获取验证码  对应回调里的  EVENT_GET_VERIFICATION_CODE
                 break;
             case R.id.find_pwd_bt_commit:
-                SMSSDK.submitVerificationCode("86", mPhone.getText().toString().trim(), mNumber
+                SMSSDK.submitVerificationCode("86", mPhone.getText().toString().trim(), mNumber  //校验验证码  对应回调里的 RESULT_COMPLETE
                         .getText().toString());
                 break;
         }
