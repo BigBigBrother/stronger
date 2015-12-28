@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+
+    <color name="app_base_color">#4CAF50</color>
     <color name="trans_black">#aa000000</color>
     <color name="transparent">#00000000</color>
     <color name="color_icon_text_pressed">#ff00aeff</color>

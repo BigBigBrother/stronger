@@ -1,65 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:orientation="vertical"
-                android:fitsSystemWindows="true"
-                android:clipToPadding="true"
-                android:background="@drawable/login_bg"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/login_bg_sea"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    android:orientation="vertical">
 
     <com.rengwuxian.materialedittext.MaterialEditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:met_baseColor="#87CEEB"
-            app:met_primaryColor="#fff"
-            app:met_floatingLabel="highlight"
-            app:met_floatingLabelText="UserName"
-            android:layout_marginLeft="@dimen/login_margin"
-            android:layout_marginRight="@dimen/login_margin"
-            android:hint="User name"
-            android:id="@+id/et_login_user_name"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="180dp" />
-    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/et_login_user_name"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:met_baseColor="#87CEEB"
-        app:met_primaryColor="#fff"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/login_margin"
+        android:layout_marginRight="@dimen/login_margin"
+        android:layout_marginTop="130dp"
+        android:hint="User name"
+        app:met_baseColor="@color/black"
+        app:met_floatingLabel="highlight"
+        app:met_floatingLabelText="UserName"
+        app:met_primaryColor="@color/white" />
+
+    <com.rengwuxian.materialedittext.MaterialEditText
+        android:id="@+id/et_login_user_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:layout_marginLeft="@dimen/login_margin"
+        android:layout_marginRight="@dimen/login_margin"
+        android:hint="password"
+        android:inputType="textPassword"
+        app:met_baseColor="@color/black"
         app:met_floatingLabel="highlight"
         app:met_floatingLabelText="UserPwd"
-        android:layout_marginLeft="@dimen/login_margin"
-        android:layout_marginRight="@dimen/login_margin"
-        android:inputType="textPassword"
-        android:hint="password"
-        android:id="@+id/et_login_user_pwd"
-        android:layout_centerVertical="true"
-        />
+        app:met_primaryColor="@color/white" />
 
     <TextView
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginLeft="@dimen/login_margin"
-            android:layout_marginRight="@dimen/login_margin"
-            android:background="@drawable/login_sign_in_bg_1"
-            android:text="Sing in"
-            android:textSize="20sp"
-            android:gravity="center"
-            android:id="@+id/tv_sign_in"
-            android:layout_below="@+id/et_login_user_pwd"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="54dp" />
-    <TextView
+        android:id="@+id/tv_sign_in"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_below="@+id/et_login_user_pwd"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="@dimen/login_margin"
         android:layout_marginRight="@dimen/login_margin"
-        android:text="Forgot password?"
-        android:textSize="20sp"
+        android:layout_marginTop="54dp"
+        android:background="@drawable/login_sign_in_bg_1"
         android:gravity="center"
+        android:text="Sing in"
+        android:textSize="20sp" />
+
+    <TextView
         android:id="@+id/tv_forgot_pwd"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
         android:layout_below="@+id/tv_sign_in"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="20dp" />
+        android:layout_marginLeft="@dimen/login_margin"
+        android:layout_marginRight="@dimen/login_margin"
+        android:background="@drawable/login_sign_in_bg_1"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="Forgot password?"
+        android:textSize="20sp" />
 
 </RelativeLayout>
