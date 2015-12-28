@@ -23,6 +23,7 @@ import android.view.WindowManager;
 
 import com.facebook.drawee.view.SimpleDraweeView;
 
+import Utils.AllUtils;
 import Utils.PreferenceUtils;
 import fragment.MainFragment;
 
@@ -73,11 +74,13 @@ public class MainActivity extends AppCompatActivity
         simpleDraweeView.setOnClickListener(this);
 
 
-        FragmentManager manager=getFragmentManager();
-        FragmentTransaction transaction=manager.beginTransaction();
-        Fragment fragment=new MainFragment();
-        transaction.add(R.id.fl_main,fragment);
-        transaction.commit();
+//        FragmentManager manager=getFragmentManager();
+//        FragmentTransaction transaction=manager.beginTransaction();
+//        Fragment fragment=new MainFragment();
+//        transaction.add(R.id.fl_main,fragment);
+//        transaction.commit();
+        //fragment
+        AllUtils.addToFragment(getFragmentManager(),R.id.fl_main,new MainFragment());
     }
 
 

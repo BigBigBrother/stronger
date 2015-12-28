@@ -17,6 +17,9 @@ import java.util.regex.Pattern;
 
 import android.app.Activity;
 import android.app.Dialog;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.content.BroadcastReceiver;
@@ -40,6 +43,10 @@ import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
+
+import com.example.administrator.newtest.R;
+
+import fragment.MainFragment;
 
 public class AllUtils {
 	
@@ -84,6 +91,16 @@ public class AllUtils {
 					}
 				}).show();
 	}
+
+	/**
+	 * 封装的跳转到Fragment
+	 */
+	public static void addToFragment(FragmentManager manager,int id,Fragment fragment){
+		FragmentTransaction transaction=manager.beginTransaction();
+		transaction.add(id,fragment);
+		transaction.commit();
+	}
+
 
 	/**
 	 * 文件大小转换

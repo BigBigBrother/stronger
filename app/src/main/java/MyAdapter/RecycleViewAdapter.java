@@ -53,6 +53,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 //        masonryView.imageView.setImageResource(products.get(position).img);
         Prodect prodect= (Prodect) mData.get(position);
         masonryView.textView.setText(prodect.name);
+        masonryView.imageView.setImageResource(prodect.drawable);
         //定义接口的回调
         if (mOnItemClickLitener != null){
             masonryView.itemView.setOnClickListener(new View.OnClickListener() {

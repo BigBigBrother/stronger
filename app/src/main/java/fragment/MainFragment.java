@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import MyAdapter.MyInterface;
 import MyAdapter.RecycleViewAdapter;
 import MyAdapter.SpacesItemDecoration;
+import Utils.AllUtils;
 import model.Prodect;
 
 /**
@@ -32,6 +34,10 @@ public class MainFragment extends BaseFragment{
     private RecycleViewAdapter mAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private ArrayList<Prodect> mData;
+
+
+    private int drawable_Res []={R.drawable.lhs,R.drawable.lsh2,R.drawable.lhs3,R.drawable.lhs4,R.drawable.lhs5};
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,7 +50,7 @@ public class MainFragment extends BaseFragment{
     public void findViews(View view) {
         mData=new ArrayList();
         for (int i=0;i<5;i++){
-            mData.add(new Prodect("name"+i));
+            mData.add(new Prodect("龙虎山",drawable_Res[i]));
         }
 
         mRecyclerView= (RecyclerView) view.findViewById(R.id.content_main_recyclerview);
@@ -60,8 +66,9 @@ public class MainFragment extends BaseFragment{
                 Intent intent = new Intent();
                 intent.setClass(getActivity(),PlayActivity.class);
                 startActivity(intent);
+                //AllUtils.addToFragment(getFragmentManager(),R.id.fl_main,new ShowViewFragment());
 
-                Toast.makeText(getActivity(),"点击Recy",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(),"点击Recy",Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -83,7 +90,7 @@ public class MainFragment extends BaseFragment{
                         //Http请求
                         mData=new ArrayList();
                         for (int i=0;i<5;i++){
-                            mData.add(new Prodect("刷新"+i));
+                            mData.add(new Prodect("刷新"+i,drawable_Res[i]));
                         }
                         mAdapter.clearData();
                         mAdapter.appendData(mData);
