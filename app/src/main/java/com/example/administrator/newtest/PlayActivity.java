@@ -1,6 +1,5 @@
 package com.example.administrator.newtest;
 
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -32,7 +31,10 @@ public class PlayActivity extends BaseActivity {
         {
             Window window=getWindow();
             //状态栏设置为透明
-            window.setFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS, WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+            //透明导航栏 一些手机如果有虚拟键盘的话,虚拟键盘就会变成透明的,挡住底部按钮点击事件所以,最后不要用
+//            window.addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+//            findViewById(R.id.play_message_view).setVisibility(View.VISIBLE);
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.play_toolbar);
