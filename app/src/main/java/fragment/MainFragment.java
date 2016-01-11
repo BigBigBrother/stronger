@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -22,7 +21,6 @@ import java.util.ArrayList;
 import MyAdapter.MyInterface;
 import MyAdapter.RecycleViewAdapter;
 import MyAdapter.SpacesItemDecoration;
-import Utils.AllUtils;
 import model.Prodect;
 
 /**
@@ -64,10 +62,9 @@ public class MainFragment extends BaseFragment{
             @Override
             public void onItemClick(View view, int position) {
                 Intent intent = new Intent();
-                intent.setClass(getActivity(),PlayActivity.class);
+                intent.setClass(getActivity(), PlayActivity.class);
                 startActivity(intent);
                 //AllUtils.addToFragment(getFragmentManager(),R.id.fl_main,new ShowViewFragment());
-
                 //Toast.makeText(getActivity(),"点击Recy",Toast.LENGTH_SHORT).show();
             }
 
