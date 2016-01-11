@@ -55,7 +55,7 @@ public class MainFragment extends BaseFragment{
 
         mRecyclerView= (RecyclerView) view.findViewById(R.id.content_main_recyclerview);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        //间距
+        //间距  GridView
         SpacesItemDecoration decoration=new SpacesItemDecoration(16);
         mRecyclerView.addItemDecoration(decoration);
         mAdapter=new RecycleViewAdapter(mData);
