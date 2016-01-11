@@ -1,16 +1,11 @@
 package com.example.administrator.newtest;
 
 import android.animation.ObjectAnimator;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -19,6 +14,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.WindowManager;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -28,15 +24,16 @@ import Utils.PreferenceUtils;
 import fragment.MainFragment;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,View.OnClickListener {
+        implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
 
-    private String image_url="http://a.hiphotos.baidu.com/image/pic/item/34fae6cd7b899e512f76cec546a7d933c9950d62.jpg";
+    private String image_url = "http://a.hiphotos.baidu.com/image/pic/item/34fae6cd7b899e512f76cec546a7d933c9950d62.jpg";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
 
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             //透明状态栏
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
             //透明导航栏 一些手机如果有虚拟键盘的话,虚拟键盘就会变成透明的,挡住底部按钮点击事件所以,最后不要用
@@ -56,8 +53,6 @@ public class MainActivity extends AppCompatActivity
         });
 
 
-
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
@@ -67,8 +62,8 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        View view =navigationView.getHeaderView(0);
-        SimpleDraweeView simpleDraweeView= (SimpleDraweeView) view.findViewById(R.id.nav_header_image);
+        View view = navigationView.getHeaderView(0);
+        SimpleDraweeView simpleDraweeView = (SimpleDraweeView) view.findViewById(R.id.nav_header_image);
         simpleDraweeView.setAspectRatio(1.0f);//设置宽高比ß
         simpleDraweeView.setImageURI(Uri.parse(image_url));
         simpleDraweeView.setOnClickListener(this);
@@ -80,15 +75,15 @@ public class MainActivity extends AppCompatActivity
 //        transaction.add(R.id.fl_main,fragment);
 //        transaction.commit();
         //fragment
-        AllUtils.addToFragment(getFragmentManager(),R.id.fl_main,new MainFragment());
+        AllUtils.addToFragment(getFragmentManager(), R.id.fl_main, new MainFragment());
     }
 
 
     /**
      * 属性动画   渐变效果
      */
-    private void mObjectAnimation(View view){
-        ObjectAnimator objectAnimator=ObjectAnimator.ofFloat(view,"alpha",0f,1f);
+    private void mObjectAnimation(View view) {
+        ObjectAnimator objectAnimator = ObjectAnimator.ofFloat(view, "alpha", 0f, 1f);
         objectAnimator.setDuration(1000);
         objectAnimator.start();
     }
@@ -119,10 +114,12 @@ public class MainActivity extends AppCompatActivity
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            Intent intent=new Intent(MainActivity.this,SettingActivity.class);
+            Intent intent = new Intent(MainActivity.this, SettingActivity.class);
             startActivity(intent);
             return true;
-        }else if (id == R.id.action_logout) {
+        } else if (id == R.id.action_logout) {
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
             this.finish();
             PreferenceUtils.clear(MainActivity.this);
             return true;
@@ -158,7 +155,7 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.nav_header_image:
 
                 break;

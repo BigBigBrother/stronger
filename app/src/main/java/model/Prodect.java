@@ -1,7 +1,5 @@
 package model;
 
-import android.graphics.drawable.Drawable;
-
 /**
  * Created by Administrator on 2015/11/26.
  */
