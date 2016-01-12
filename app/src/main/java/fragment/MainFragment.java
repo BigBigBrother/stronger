@@ -17,18 +17,23 @@ import com.example.administrator.newtest.PlayActivity;
 import com.example.administrator.newtest.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import MyAdapter.MyInterface;
 import MyAdapter.RecycleViewAdapter;
 import MyAdapter.SpacesItemDecoration;
+import jp.wasabeef.recyclerview.adapters.AlphaInAnimationAdapter;
+import jp.wasabeef.recyclerview.adapters.SlideInBottomAnimationAdapter;
+import jp.wasabeef.recyclerview.animators.FadeInAnimator;
 import model.Prodect;
+import view.LoadMoreRecyclerView;
 
 /**
  * Created by Administrator on 2015/11/25.
  */
 public class MainFragment extends BaseFragment{
 
-    private RecyclerView mRecyclerView;
+    private LoadMoreRecyclerView mRecyclerView;
     private RecycleViewAdapter mAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
     private ArrayList<Prodect> mData;
@@ -44,28 +49,55 @@ public class MainFragment extends BaseFragment{
         return container;
     }
 
+    public List getData(){
+        List data=new ArrayList();
+        for (int i=0;i<5;i++){
+            data.add(new Prodect("龙虎山",drawable_Res[i]));
+        }
+        return data;
+    }
+
+    public List getNewData(){
+        List data=new ArrayList();
+        for (int i=0;i<5;i++){
+            data.add(new Prodect("刷新"+i,drawable_Res[i]));
+        }
+        return data;
+    }
+
     @Override
     public void findViews(View view) {
-        mData=new ArrayList();
-        for (int i=0;i<5;i++){
-            mData.add(new Prodect("龙虎山",drawable_Res[i]));
-        }
+        getActivity().findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mRecyclerView.scrollToPosition(0);
+            }
+        });
 
-        mRecyclerView= (RecyclerView) view.findViewById(R.id.content_main_recyclerview);
+        mRecyclerView= (LoadMoreRecyclerView) view.findViewById(R.id.content_main_recyclerview);
+        mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         //间距  GridView
         SpacesItemDecoration decoration=new SpacesItemDecoration(16);
         mRecyclerView.addItemDecoration(decoration);
-        mAdapter=new RecycleViewAdapter(mData);
-        mRecyclerView.setAdapter(mAdapter);
+
+        /**
+         * recyclerView item的动画
+         * (爱鲜蜂 App效果动画)
+         * 动画的类型可选   参照  https://github.com/wasabeef/recyclerview-animators
+         */
+        mRecyclerView.setItemAnimator(new FadeInAnimator());
+        mAdapter = new RecycleViewAdapter(getData());
+        AlphaInAnimationAdapter alphaInAnimationAdapter = new AlphaInAnimationAdapter(mAdapter);
+        SlideInBottomAnimationAdapter slideInBottomAnimationAdapter = new SlideInBottomAnimationAdapter(alphaInAnimationAdapter);
+        mRecyclerView.setAdapter(slideInBottomAnimationAdapter);
+
         mAdapter.setOnItemClickLitener(new MyInterface() {
             @Override
             public void onItemClick(View view, int position) {
                 Intent intent = new Intent();
                 intent.setClass(getActivity(), PlayActivity.class);
                 startActivity(intent);
-                //AllUtils.addToFragment(getFragmentManager(),R.id.fl_main,new ShowViewFragment());
-                //Toast.makeText(getActivity(),"点击Recy",Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -85,17 +117,33 @@ public class MainFragment extends BaseFragment{
                     public void run() {
                         mSwipeRefreshLayout.setRefreshing(false);
                         //Http请求
-                        mData=new ArrayList();
-                        for (int i=0;i<5;i++){
-                            mData.add(new Prodect("刷新"+i,drawable_Res[i]));
-                        }
                         mAdapter.clearData();
-                        mAdapter.appendData(mData);
-                        mAdapter.notifyDataSetChanged();
+                        mData= (ArrayList<Prodect>) getNewData();
+                        mRecyclerView.setItemAnimator(new FadeInAnimator());
+                        mAdapter = new RecycleViewAdapter(mData);
+                        AlphaInAnimationAdapter alphaInAnimationAdapter = new AlphaInAnimationAdapter(mAdapter);
+                        SlideInBottomAnimationAdapter slideInBottomAnimationAdapter = new SlideInBottomAnimationAdapter(alphaInAnimationAdapter);
+                        mRecyclerView.setAdapter(slideInBottomAnimationAdapter);
                     }
-                }, 2000);
+                }, 1000);
             }
         });
+
+        mRecyclerView.setAutoLoadMoreEnable(true);//支持上拉加载更多
+        mRecyclerView.setLoadMoreListener(new LoadMoreRecyclerView.LoadMoreListener() {
+            @Override
+            public void onLoadMore() {
+                mRecyclerView.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        mSwipeRefreshLayout.setRefreshing(false);
+                        mAdapter.appendData(getData());
+                        mRecyclerView.notifyMoreFinish(true);
+                    }
+                }, 1000);
+            }
+        });
+
     }
 
 }

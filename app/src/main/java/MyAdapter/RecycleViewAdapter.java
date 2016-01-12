@@ -24,6 +24,7 @@ public class RecycleViewAdapter extends RecyclerView.Adapter<RecycleViewAdapter.
 
     public RecycleViewAdapter(List<?> list) {
         if (list!=null){
+            //mData.clear();
             mData=list;
         }else {
             mData=new ArrayList<>();

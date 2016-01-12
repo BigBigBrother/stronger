@@ -18,7 +18,7 @@ public abstract class BaseFragment extends Fragment{
         return super.onCreateView(inflater, container, savedInstanceState);
     }
 
-    public void getData(){};//获取数据
-    public void setData(){};//
+    //public void getData(){};//获取数据
+    //public void setData(){};//
     public abstract void findViews(View view);//绑定id
 }
