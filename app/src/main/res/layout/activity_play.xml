@@ -12,9 +12,9 @@
         app:layout_scrollFlags="scroll|enterAlways"></View>
 
     <android.support.design.widget.CoordinatorLayout
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="20dp"
         android:orientation="vertical">
 
         <android.support.design.widget.AppBarLayout
@@ -50,4 +50,26 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#4CAF50"
+            android:id="@+id/comment_content_edittext"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5"
+            android:text="评论"
+            android:textStyle="bold"
+            android:id="@+id/comment_content_commit"/>
+
+    </LinearLayout>
 </RelativeLayout>

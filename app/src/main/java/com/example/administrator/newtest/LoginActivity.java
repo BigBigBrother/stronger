@@ -105,8 +105,8 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
-    private static final String IP = "192.168.1.108";
-    private static final String URL = "http://" + IP + "/login.php";
+    private static final String IP = "192.168.31.220";
+    private static final String URL = "http://" + IP + "/GoTravel/login.php";
 
     // 通过url请求获取JsonString
     private String getJsonString(String requestUrl) {
@@ -139,6 +139,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 case 2:
                     AllUtils.toast(LoginActivity.this, "用户名或密码为空!");
                     break;
+                case 3:
+                    AllUtils.toast(LoginActivity.this, "网络连接异常!");
+                    break;
             }
         }
     };
@@ -168,6 +171,13 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         String name = et_userName.getText().toString().trim();
         String pwd = et_uesrPwd.getText().toString().trim();
 
+        if (TextUtils.isEmpty(jsonStr)) {
+            Message message = mHandler.obtainMessage();
+            message.what = 3;
+            mHandler.sendMessage(message);
+            return true;
+//            return false;
+        }
         if (TextUtils.isEmpty(name) || TextUtils.isEmpty(pwd)) {//对用户名密码进行校验
             Message message = mHandler.obtainMessage();
             message.what = 2;
@@ -199,7 +209,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     PreferenceUtils.putString(this, Constant.LOGIN_NAME, name);//保存用户名密码
                     PreferenceUtils.putString(this, Constant.LOGIN_PWD, pwd);//保存用户名密码
                     return true;
-                } else if (i == jsonArray.length() - 1){
+                } else if (i == jsonArray.length() - 1) {
                     Message message = mHandler.obtainMessage();
                     message.what = 1;
                     mHandler.sendMessage(message);
@@ -210,4 +220,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
         return false;
     }
+
+
 }
