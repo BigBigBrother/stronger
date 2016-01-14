@@ -8,4 +8,6 @@
     <color name="holo_red_light">#ffff4444</color>
     <!-- A dark Holo shade of blue -->
     <color name="holo_blue_dark">#ff0099cc</color>
+    <color name="global_bg">#eeeff3</color>
+    <color name="line_color">#dadada</color>
 </resources>

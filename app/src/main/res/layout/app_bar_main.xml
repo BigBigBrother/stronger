@@ -15,8 +15,8 @@
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
-            android:layout_marginTop="20dp"
             android:id="@+id/toolbar"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/app_base_color"

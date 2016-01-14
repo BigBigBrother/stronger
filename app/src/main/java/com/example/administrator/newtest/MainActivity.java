@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 
 import com.facebook.drawee.view.SimpleDraweeView;
@@ -31,6 +32,10 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        // 隐藏应用程序的标题栏，即当前activity的标题栏
+        //this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main2);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -48,7 +53,7 @@ public class MainActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //录音界面
+
             }
         });
 
@@ -66,7 +71,7 @@ public class MainActivity extends AppCompatActivity
         SimpleDraweeView simpleDraweeView = (SimpleDraweeView) view.findViewById(R.id.nav_header_image);
         simpleDraweeView.setAspectRatio(1.0f);//设置宽高比ß
         simpleDraweeView.setImageURI(Uri.parse(image_url));
-        simpleDraweeView.setOnClickListener(this);
+        //simpleDraweeView.setOnClickListener(this);
 
 
 //        FragmentManager manager=getFragmentManager();
