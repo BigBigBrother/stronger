@@ -7,19 +7,20 @@
     <LinearLayout
         android:id="@+id/base_swipe_item_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="300dp"
         android:orientation="vertical"
         android:padding="5dp">
 
         <ImageView
             android:id="@+id/base_swipe_item_icon"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="250dp"
+            android:scaleType="fitXY"
             android:layout_gravity="center_horizontal" />
         <TextView
             android:id="@+id/base_swipe_item_title"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:text="name "
             android:gravity="center"
             android:textSize="21sp" />
