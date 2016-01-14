@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity
         SimpleDraweeView simpleDraweeView = (SimpleDraweeView) view.findViewById(R.id.nav_header_image);
         simpleDraweeView.setAspectRatio(1.0f);//设置宽高比ß
         simpleDraweeView.setImageURI(Uri.parse(image_url));
-        simpleDraweeView.setOnClickListener(this);
+        //simpleDraweeView.setOnClickListener(this);
 
 
 //        FragmentManager manager=getFragmentManager();

@@ -105,7 +105,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
-    private static final String IP = "192.168.1.109";
+    private static final String IP = "192.168.1.108";
     private static final String URL = "http://" + IP + "/login.php";
 
     // 通过url请求获取JsonString
