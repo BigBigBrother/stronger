@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import MyAdapter.CommentAdapter;
+import Utils.HttpUtils;
 
 
 public class PlayActivity extends BaseActivity {
@@ -63,8 +64,10 @@ public class PlayActivity extends BaseActivity {
         initView();
     }
 
-    private static final String IP = "192.168.31.220";
+    private static final String IP = "192.168.1.107";
     private static final String URL = "http://" + IP + "/GoTravel/post_comment.php";
+    private static final String USERIMGPATH = "http://" + IP + "/GoTravel/Resource/Image/UserImg1.jpg";
+
 
     private void initView() {
         VideoView videoView = (VideoView) findViewById(R.id.play_video_view);
@@ -113,11 +116,12 @@ public class PlayActivity extends BaseActivity {
                 map.put("username", "小安子" + ":");
                 map.put("usercomment", commentContext);
                 map.put("commenttime", date);
-                map.put("zancount", commentAdapter.getItemCount()+"");
+                map.put("zancount", commentAdapter.getItemCount() + "");
                 commentAdapter.getDataList().add(map);
                 commentAdapter.notifyDataSetChanged();
-
-//                HttpUtils.AsyncHttpClientPost(URL,);
+                String[] commentKey = {"UserName", "UserComment", "UserImgPath", "CommentData"};
+                String[] commentValue = {"小安子", commentContext, USERIMGPATH, date};
+                HttpUtils.AsyncHttpClientPost(URL,commentKey,commentValue);
             }
         });
 

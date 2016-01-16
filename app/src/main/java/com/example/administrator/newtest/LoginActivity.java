@@ -105,7 +105,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
-    private static final String IP = "192.168.31.220";
+    private static final String IP = "192.168.1.107";
     private static final String URL = "http://" + IP + "/GoTravel/login.php";
 
     // 通过url请求获取JsonString
@@ -158,6 +158,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         protected void onPostExecute(Boolean isTrue) {
             super.onPostExecute(isTrue);
             Log.w("ZH-DEBUG", "isTrue = " + isTrue);
+            isTrue = true;
             if (isTrue) {
                 Intent intent = new Intent();
                 intent.setClass(LoginActivity.this, MainActivity.class);
