@@ -123,9 +123,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     mHandler.sendMessage(message);
 //                    break;
                 }
-                String[] key = {"UserName","Password"};
-                String[] value = {username,password};
-                HttpUtils.AsyncHttpClientPost(Constant.URL_LOGIN,key,value);
+                String[] key = {"UserName", "Password"};
+                String[] value = {username, password};
+                HttpUtils.AsyncHttpClientPost(Constant.URL_LOGIN, key, value);
 //                new httpRequest().execute(Constant.URL_LOGIN);
                 break;
             case R.id.tv_forgot_pwd://find pwd
