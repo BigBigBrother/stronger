@@ -26,6 +26,7 @@ import java.net.URLConnection;
 
 import Utils.AllUtils;
 import Utils.Constant;
+import Utils.HttpUtils;
 import Utils.PreferenceUtils;
 
 /**
@@ -35,6 +36,26 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     private static final String TAG = "LoginActivity";
     private MaterialEditText et_userName, et_uesrPwd;
+    private String username;
+    private String password;
+
+
+    private Handler mHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 1:
+                    AllUtils.toast(LoginActivity.this, "用户名或密码错误！");
+                    break;
+                case 2:
+                    AllUtils.toast(LoginActivity.this, "用户名或密码为空!");
+                    break;
+                case 3:
+                    AllUtils.toast(LoginActivity.this, "网络连接异常!");
+                    break;
+            }
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,15 +108,25 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 //        Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.tv_sign_in:
-//                if (vetifyLogin(et_userName, et_uesrPwd)) {
-//                    intent.setClass(this, MainActivity.class);
-//                    startActivity(intent);
-                Log.w("ZH-DEBUG", "URL = " + URL);
-                new httpRequest().execute(URL);
-//                this.finish();
-//                } else {
-//                    AllUtils.toast(this, "user password error!!");
-//                }
+
+                if (!AllUtils.isConnectedOrConnecting(this)) {
+                    Message message = mHandler.obtainMessage();
+                    message.what = 3;
+                    mHandler.sendMessage(message);
+//                    break;
+                }
+                username = et_userName.getText().toString().trim();
+                password = et_uesrPwd.getText().toString().trim();
+                if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {//对用户名密码进行校验
+                    Message message = mHandler.obtainMessage();
+                    message.what = 2;
+                    mHandler.sendMessage(message);
+//                    break;
+                }
+                String[] key = {"UserName","Password"};
+                String[] value = {username,password};
+                HttpUtils.AsyncHttpClientPost(Constant.URL_LOGIN,key,value);
+//                new httpRequest().execute(Constant.URL_LOGIN);
                 break;
             case R.id.tv_forgot_pwd://find pwd
                 Intent intent = new Intent();
@@ -104,9 +135,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 break;
         }
     }
-
-    private static final String IP = "192.168.1.107";
-    private static final String URL = "http://" + IP + "/GoTravel/login.php";
 
     // 通过url请求获取JsonString
     private String getJsonString(String requestUrl) {
@@ -129,27 +157,11 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         return strBuf.toString();
     }
 
-    private Handler mHandler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case 1:
-                    AllUtils.toast(LoginActivity.this, "用户名或密码错误！");
-                    break;
-                case 2:
-                    AllUtils.toast(LoginActivity.this, "用户名或密码为空!");
-                    break;
-                case 3:
-                    AllUtils.toast(LoginActivity.this, "网络连接异常!");
-                    break;
-            }
-        }
-    };
-
     private class httpRequest extends AsyncTask<String, Void, Boolean> {
 
         @Override
         protected Boolean doInBackground(String... url) {
+
             String jsonStr = getJsonString(url[0]);
             return parseJson(jsonStr);
         }
@@ -158,7 +170,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         protected void onPostExecute(Boolean isTrue) {
             super.onPostExecute(isTrue);
             Log.w("ZH-DEBUG", "isTrue = " + isTrue);
-            isTrue = true;
             if (isTrue) {
                 Intent intent = new Intent();
                 intent.setClass(LoginActivity.this, MainActivity.class);

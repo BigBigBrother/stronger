@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import MyAdapter.CommentAdapter;
+import Utils.Constant;
 import Utils.HttpUtils;
 
 
@@ -63,11 +64,7 @@ public class PlayActivity extends BaseActivity {
         });
         initView();
     }
-
-    private static final String IP = "192.168.1.107";
-    private static final String URL = "http://" + IP + "/GoTravel/post_comment.php";
-    private static final String USERIMGPATH = "http://" + IP + "/GoTravel/Resource/Image/UserImg1.jpg";
-
+    private static final String USERIMGPATH = "http://" + Constant.IP + "/GoTravel/Resource/Image/UserImg1.jpg";
 
     private void initView() {
         VideoView videoView = (VideoView) findViewById(R.id.play_video_view);
@@ -121,7 +118,7 @@ public class PlayActivity extends BaseActivity {
                 commentAdapter.notifyDataSetChanged();
                 String[] commentKey = {"UserName", "UserComment", "UserImgPath", "CommentData"};
                 String[] commentValue = {"小安子", commentContext, USERIMGPATH, date};
-                HttpUtils.AsyncHttpClientPost(URL,commentKey,commentValue);
+                HttpUtils.AsyncHttpClientPost(Constant.URL_POST_COMMENT,commentKey,commentValue);
             }
         });
 
