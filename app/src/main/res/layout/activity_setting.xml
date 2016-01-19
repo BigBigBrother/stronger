@@ -1,13 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
+    android:background="@color/app_base_color"
     android:layout_height="match_parent">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="25dp"
+        android:background="#33cccccc"
+        android:visibility="gone"
+        android:id="@+id/main_no_title"/>
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/setting_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/app_base_color"
+        app:popupTheme="@style/AppTheme.PopupOverlay"/>
     <LinearLayout
-        android:id="@+id/setting_image"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:background="@color/white"
+        android:layout_height="match_parent">
+    <LinearLayout
+
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="5dp"
         android:orientation="horizontal"
         android:gravity="center_vertical">
         <TextView
@@ -17,17 +36,24 @@
             android:text="头像"
             />
         <ImageView
+            android:id="@+id/setting_image"
             android:layout_width="60dp"
             android:layout_height="60dp"
             android:layout_marginLeft="-100dp"
             android:background="@drawable/lhs"/>
     </LinearLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:background="@color/app_base_color"/>
     <LinearLayout
-        android:id="@+id/setting_name"
+
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:gravity="center_vertical">
         <TextView
@@ -37,18 +63,26 @@
             android:text="昵称"
             />
         <TextView
+            android:id="@+id/setting_name"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:layout_marginLeft="-100dp"
             android:text="aaaa"
             />
     </LinearLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:background="@color/app_base_color"/>
     <LinearLayout
-        android:id="@+id/setting_sign"
+
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:gravity="center_vertical">
         <TextView
@@ -58,19 +92,27 @@
             android:text="个性签名"
             />
         <TextView
+            android:id="@+id/setting_sign"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:layout_marginLeft="-100dp"
             android:singleLine="true"
             android:text="www.aaa.com"
             />
     </LinearLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:background="@color/app_base_color"/>
     <LinearLayout
-        android:id="@+id/setting_about"
+
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:gravity="center_vertical">
         <TextView
@@ -80,19 +122,27 @@
             android:text="关于我们"
             />
         <TextView
+            android:id="@+id/setting_about"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:layout_marginLeft="-100dp"
             android:singleLine="true"
             android:text="ssssssssssssssssssss"
             />
     </LinearLayout>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="2dp"
+        android:background="@color/app_base_color"/>
     <LinearLayout
-        android:id="@+id/setting_version"
+
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="20dp"
         android:orientation="horizontal"
         android:gravity="center_vertical">
         <TextView
@@ -102,12 +152,14 @@
             android:text="版本信息"
             />
         <TextView
+            android:id="@+id/setting_version"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
             android:layout_marginLeft="-100dp"
             android:singleLine="true"
             android:text="1.0"
             />
     </LinearLayout>
-
+    </LinearLayout>
 </LinearLayout>
