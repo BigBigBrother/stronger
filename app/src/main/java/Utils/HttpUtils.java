@@ -77,8 +77,7 @@ public class HttpUtils {
              */
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-                String result = new String(responseBody); // 设置显示的文本
-                Log.w("ZH-DEBUG","onFailure result = "+result);
+                error.printStackTrace();
             }
         });
         return HttpUtils.postResult;

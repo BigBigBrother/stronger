@@ -125,15 +125,31 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 }
                 String[] key = {"UserName", "Password"};
                 String[] value = {username, password};
-                HttpUtils.AsyncHttpClientPost(Constant.URL_LOGIN, key, value);
+                String result = HttpUtils.AsyncHttpClientPost(Constant.URL_LOGIN, key, value);
+                if(result == "1"){
+                    startMainActivity();
+                }else {
+                    Message message = mHandler.obtainMessage();
+                    message.what = 1;
+                    mHandler.sendMessage(message);
+                    startMainActivity();
+                }
+
 //                new httpRequest().execute(Constant.URL_LOGIN);
                 break;
             case R.id.tv_forgot_pwd://find pwd
-                Intent intent = new Intent();
-                intent.setClass(this, FindPwdActivity.class);
-                startActivity(intent);
+                Intent intent1 = new Intent();
+                intent1.setClass(this, FindPwdActivity.class);
+                startActivity(intent1);
                 break;
         }
+    }
+
+    private void startMainActivity(){
+        Intent intent = new Intent();
+        intent.setClass(LoginActivity.this, MainActivity.class);
+        startActivity(intent);
+        LoginActivity.this.finish();
     }
 
     // 通过url请求获取JsonString
