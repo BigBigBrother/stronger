@@ -2,6 +2,7 @@ package com.example.administrator.newtest;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.util.Log;
 
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -18,6 +19,8 @@ import cz.msebera.android.httpclient.Header;
  */
 public class SettingActivity extends BaseActivity{
 
+    private String TAG="SettingActivity";
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,18 +34,19 @@ public class SettingActivity extends BaseActivity{
         AsyncHttpClient client=new AsyncHttpClient();
         client.setTimeout(10000);
         RequestParams parm=new RequestParams();
-        parm.put("name","123");
-        parm.put("pwd","456");
+//        parm.put("name","123");
+//        parm.put("pwd","456");
         String url="baidu.com";
-        client.post(url, parm, new AsyncHttpResponseHandler() {
+        client.post(url, new AsyncHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, byte[] responseBody) {
-
+                Log.e(TAG,"onSuccess="+responseBody.toString());
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
-
+                //Log.e(TAG,"onFailure="+responseBody.toString());
+                Log.e(TAG,"onFailure="+error.toString());
             }
         });
 
