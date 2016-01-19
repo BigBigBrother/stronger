@@ -67,13 +67,15 @@ public class SettingActivity extends BaseActivity implements View.OnClickListene
         // Navigation Icon 要設定在 setSupoortActionBar 才有作用
         // 否則會出現 back button
         toolbar.setNavigationIcon(R.drawable.back);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 SettingActivity.this.finish();
             }
         });
-        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.play_toolbar);
+//        setSupportActionBar(toolbar);
         iv_head = (ImageView) findViewById(R.id.setting_image);
         iv_head.setOnClickListener(this);
         tv_name = (TextView) findViewById(R.id.setting_name);
