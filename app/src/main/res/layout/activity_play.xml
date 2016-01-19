@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#4CAF50">
+    android:background="#4CAF50"
+    android:id="@+id/play_layout">
 
     <View
         android:layout_width="wrap_content"
@@ -50,26 +51,23 @@
 
     </android.support.design.widget.CoordinatorLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true">
-
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#4CAF50"
-            android:id="@+id/comment_content_edittext"/>
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="5"
-            android:text="评论"
-            android:textStyle="bold"
-            android:id="@+id/comment_content_commit"/>
-
-    </LinearLayout>
+    <!--<LinearLayout-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="60dp"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_alignParentBottom="true">-->
+        <!--<EditText-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="1"-->
+            <!--android:background="#4CAF50"-->
+            <!--android:id="@+id/comment_content_edittext"/>-->
+        <!--<Button-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:layout_weight="5"-->
+            <!--android:text="评论"-->
+            <!--android:textStyle="bold"-->
+            <!--android:id="@+id/comment_content_commit"/>-->
+    <!--</LinearLayout>-->
 </RelativeLayout>

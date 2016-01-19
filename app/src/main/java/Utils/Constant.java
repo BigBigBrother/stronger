@@ -15,7 +15,7 @@ public class Constant {
     public static final String MOB_SMS_SDK_APP_SECRET="4dbb774063c6580beaa227070fcd4d54";
 
     /**
-     * Http
+     * IP  URL
      */
     public static final String IP = "192.168.31.220";
     public static final String URL_LOGIN = "http://" + IP + "/GoTravel/login_check.php";
