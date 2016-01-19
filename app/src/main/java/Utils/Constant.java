@@ -17,7 +17,7 @@ public class Constant {
     /**
      * Http
      */
-    public static final String IP = "192.168.1.107";
+    public static final String IP = "192.168.31.220";
     public static final String URL_LOGIN = "http://" + IP + "/GoTravel/login_check.php";
     public static final String URL_POST_COMMENT = "http://" + IP + "/GoTravel/post_comment.php";
 }

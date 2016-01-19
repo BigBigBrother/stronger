@@ -1,7 +1,6 @@
 package com.example.administrator.newtest;
 
 import android.content.Intent;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -16,13 +15,6 @@ import com.rengwuxian.materialedittext.MaterialEditText;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLConnection;
 
 import Utils.AllUtils;
 import Utils.Constant;
@@ -45,13 +37,16 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case 1:
-                    AllUtils.toast(LoginActivity.this, "用户名或密码错误！");
+                    AllUtils.toast(LoginActivity.this, "用户名或密码错误");
                     break;
                 case 2:
-                    AllUtils.toast(LoginActivity.this, "用户名或密码为空!");
+                    AllUtils.toast(LoginActivity.this, "用户名或密码为空");
                     break;
                 case 3:
-                    AllUtils.toast(LoginActivity.this, "网络连接异常!");
+                    AllUtils.toast(LoginActivity.this, "网络连接异常");
+                    break;
+                case 4:
+                    AllUtils.toast(LoginActivity.this, "服务器异常");
                     break;
             }
         }
@@ -91,51 +86,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
-    private boolean vetifyLogin(MaterialEditText et_userName, MaterialEditText et_uesrPwd) {
-        String name = et_userName.getText().toString().trim();
-        String pwd = et_uesrPwd.getText().toString().trim();
-        if (!(TextUtils.isEmpty(name) && TextUtils.isEmpty(pwd))) {//对用户名密码进行校验
-            PreferenceUtils.putString(this, Constant.LOGIN_NAME, name);//保存用户名密码
-            PreferenceUtils.putString(this, Constant.LOGIN_PWD, pwd);//保存用户名密码
-            return true;
-        } else {
-            return false;
-        }
-    }
-
     @Override
     public void onClick(View view) {
 //        Intent intent = new Intent();
         switch (view.getId()) {
             case R.id.tv_sign_in:
-
-                if (!AllUtils.isConnectedOrConnecting(this)) {
-                    Message message = mHandler.obtainMessage();
-                    message.what = 3;
-                    mHandler.sendMessage(message);
-//                    break;
-                }
-                username = et_userName.getText().toString().trim();
-                password = et_uesrPwd.getText().toString().trim();
-                if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {//对用户名密码进行校验
-                    Message message = mHandler.obtainMessage();
-                    message.what = 2;
-                    mHandler.sendMessage(message);
-//                    break;
-                }
-                String[] key = {"UserName", "Password"};
-                String[] value = {username, password};
-                String result = HttpUtils.AsyncHttpClientPost(Constant.URL_LOGIN, key, value);
-                if(result == "1"){
-                    startMainActivity();
-                }else {
-                    Message message = mHandler.obtainMessage();
-                    message.what = 1;
-                    mHandler.sendMessage(message);
-                    startMainActivity();
-                }
-
-//                new httpRequest().execute(Constant.URL_LOGIN);
+                loginCheck();
                 break;
             case R.id.tv_forgot_pwd://find pwd
                 Intent intent1 = new Intent();
@@ -145,54 +101,55 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         }
     }
 
+    private void loginCheck(){
+        if (!AllUtils.isConnectedOrConnecting(this)) {
+            Message message = mHandler.obtainMessage();
+            message.what = 3;
+            mHandler.sendMessage(message);
+//                    break;
+        }
+        username = et_userName.getText().toString().trim();
+        password = et_uesrPwd.getText().toString().trim();
+        String pwdMD5 = null;
+        try {
+            pwdMD5 = AllUtils.getMD5(password);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (TextUtils.isEmpty(username) || TextUtils.isEmpty(password)) {//对用户名密码进行校验
+            Message message = mHandler.obtainMessage();
+            message.what = 2;
+            mHandler.sendMessage(message);
+//                    break;
+        }
+        String[] key = {"UserName", "Password"};
+        String[] value = {username, pwdMD5};
+        String result = HttpUtils.AsyncHttpClientPost(Constant.URL_LOGIN, key, value);
+        // 返回结果为“1”则密码正确，登录成功。
+        // 返回结果为“0”则密码验证错误。
+        // 返回结果为“2”则服务端数据库连接失败。
+        if(result == "1"){
+            PreferenceUtils.putString(this, Constant.LOGIN_NAME, username);//保存用户名密码
+            PreferenceUtils.putString(this, Constant.LOGIN_PWD, password);//保存用户名密码
+            startMainActivity();
+        }else if(result == "0"){
+            Message message = mHandler.obtainMessage();
+            message.what = 1;
+            mHandler.sendMessage(message);
+        }else if (result == "2"){
+            Message message = mHandler.obtainMessage();
+            message.what = 4;
+            mHandler.sendMessage(message);
+        }else {
+            startMainActivity();
+        }
+    }
+
     private void startMainActivity(){
         Intent intent = new Intent();
         intent.setClass(LoginActivity.this, MainActivity.class);
         startActivity(intent);
         LoginActivity.this.finish();
-    }
-
-    // 通过url请求获取JsonString
-    private String getJsonString(String requestUrl) {
-        StringBuffer strBuf;
-        strBuf = new StringBuffer();
-        try {
-            URL url = new URL(requestUrl);
-            URLConnection conn = url.openConnection();
-            conn.setConnectTimeout(15000);
-            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));// 转码。
-            String line = null;
-            while ((line = reader.readLine()) != null)
-                strBuf.append(line + " ");
-            reader.close();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return strBuf.toString();
-    }
-
-    private class httpRequest extends AsyncTask<String, Void, Boolean> {
-
-        @Override
-        protected Boolean doInBackground(String... url) {
-
-            String jsonStr = getJsonString(url[0]);
-            return parseJson(jsonStr);
-        }
-
-        @Override
-        protected void onPostExecute(Boolean isTrue) {
-            super.onPostExecute(isTrue);
-            Log.w("ZH-DEBUG", "isTrue = " + isTrue);
-            if (isTrue) {
-                Intent intent = new Intent();
-                intent.setClass(LoginActivity.this, MainActivity.class);
-                startActivity(intent);
-                LoginActivity.this.finish();
-            }
-        }
     }
 
     private boolean parseJson(String jsonStr) {
@@ -204,7 +161,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
             message.what = 3;
             mHandler.sendMessage(message);
             return true;
-//            return false;
+//          return false;
         }
         if (TextUtils.isEmpty(name) || TextUtils.isEmpty(pwd)) {//对用户名密码进行校验
             Message message = mHandler.obtainMessage();

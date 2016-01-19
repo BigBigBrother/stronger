@@ -6,6 +6,13 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
+
 import cz.msebera.android.httpclient.Header;
 
 /**
@@ -15,32 +22,6 @@ public class HttpUtils {
 
     public static String postResult;
 
-/*    public static String getReultForHttpPost1(String url,String name, String pwd)
-            throws ClientProtocolException, IOException {
-        String strResult = null;
-        String httpUrl = url;
-        // HttpPost连接对象
-        HttpPost httpRequest = new HttpPost(httpUrl);
-        // 使用NameValuePair来保存要传递的Post参数
-        List<NameValuePair> params = new ArrayList<NameValuePair>();
-        // 添加要传递的参数
-        params.add(new BasicNameValuePair("tlp", name));
-        params.add(new BasicNameValuePair("pp", pwd));
-        // 设置字符集
-        HttpEntity httpentity = new UrlEncodedFormEntity(params, "gb2312");
-        // 请求httpRequest
-        httpRequest.setEntity(httpentity);
-        // 取得默认的HttpClient
-        HttpClient httpclient = new DefaultHttpClient();
-        // 取得HttpResponse
-        HttpResponse httpResponse = httpclient.execute(httpRequest);
-        // HttpStatus.SC_OK表示连接成功
-        if (httpResponse.getStatusLine().getStatusCode() == HttpStatus.SC_OK) {
-            // 取得返回的字符串;
-            strResult = EntityUtils.toString(httpResponse.getEntity());
-        }
-        return strResult;
-    }*/
 
     /**
      * 采用AsyncHttpClient的Post方式进行实现
@@ -55,7 +36,7 @@ public class HttpUtils {
         for (int i = 0; i < key.length; i++){
             params.put(key[i], value[i]); // 设置请求的参数名和参数值
         }
-//        // 执行post方法
+        // 执行post方法
         client.post(url, params, new AsyncHttpResponseHandler() {
             /**
              * 成功处理的方法
@@ -96,7 +77,6 @@ public class HttpUtils {
         for (int i = 0; i < value.length; i++){
             params.put(key[i], value[i]); // 设置请求的参数名和参数值
         }
-
         // 发送get请求的时候 url地址 相应参数,匿名回调对象
         client.get(url, params,new AsyncHttpResponseHandler() {
             @Override
@@ -115,11 +95,35 @@ public class HttpUtils {
             }
 
             @Override
-            public void onFailure(int statusCode, Header[] headers,
-                                  byte[] responseBody, Throwable error) {
+            public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error) {
                 // 失败处理的方法
                 error.printStackTrace();
             }
         });
+    }
+
+    /**
+     * 通过url请求获取JsonString
+     * @param requestUrl
+     * @return jsonStr
+     */
+    public static String getJsonString(String requestUrl) {
+        StringBuffer strBuf;
+        strBuf = new StringBuffer();
+        try {
+            URL url = new URL(requestUrl);
+            URLConnection conn = url.openConnection();
+            conn.setConnectTimeout(15000);
+            BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream(), "utf-8"));// 转码。
+            String line = null;
+            while ((line = reader.readLine()) != null)
+                strBuf.append(line + " ");
+            reader.close();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return strBuf.toString();
     }
 }
