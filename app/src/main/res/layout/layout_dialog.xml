@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="200dp"
+    android:layout_height="130dp">
+    <TextView
+        android:id="@+id/dialog_title"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:textColor="#fff"
+        android:text="name"
+        android:background="@color/app_base_color"
+        android:layout_height="50dp" />
+    <view.ClearEditText
+        android:id="@+id/dialog_content"
+        android:layout_width="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_height="50dp" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="50dp">
+        <TextView
+            android:id="@+id/dialog_cancel"
+            android:layout_width="80dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="center"
+            android:text="取消"
+            android:textColor="#fff"
+            android:layout_alignParentLeft="true"
+            android:background="@color/app_base_color"
+            android:layout_height="40dp" />
+        <TextView
+            android:id="@+id/dialog_ok"
+            android:layout_width="80dp"
+            android:gravity="center"
+            android:layout_marginRight="10dp"
+            android:text="确定"
+            android:textColor="#fff"
+            android:layout_gravity="right"
+            android:layout_alignParentRight="true"
+            android:background="@color/app_base_color"
+            android:layout_height="40dp" />
+    </RelativeLayout>
+</LinearLayout>

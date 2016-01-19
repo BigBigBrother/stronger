@@ -85,4 +85,8 @@ public class CommentAdapter extends RecyclerView.Adapter <CommentAdapter.ViewHol
         }
         return dataList;
     }
+
+    public  List<Map<String, Object>> getDataList(){
+        return dataList;
+    }
 }
