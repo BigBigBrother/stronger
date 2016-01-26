@@ -16,15 +16,14 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
-import android.widget.MediaController;
 import android.widget.PopupWindow;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.widget.VideoView;
 
 import java.io.File;
 
 import MyAdapter.CommentAdapter;
+import io.vov.vitamio.widget.MediaController;
+import io.vov.vitamio.widget.VideoView;
 
 
 public class PlayActivity extends BaseActivity {
@@ -75,19 +74,19 @@ public class PlayActivity extends BaseActivity {
             videoView.setMediaController(mController);
             // 为MediaController指定控制的VideoView
             mController.setMediaPlayer(videoView);
-            // 增加监听上一个和下一个的切换事件，默认这两个按钮是不显示的
-            mController.setPrevNextListeners(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(PlayActivity.this, "下一个", Toast.LENGTH_LONG).show();
-                }
-            }, new View.OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(PlayActivity.this, "上一个", Toast.LENGTH_LONG).show();
-                }
-            });
+//            // 增加监听上一个和下一个的切换事件，默认这两个按钮是不显示的
+//            mController.setPrevNextListeners(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View v) {
+//                    Toast.makeText(PlayActivity.this, "下一个", Toast.LENGTH_LONG).show();
+//                }
+//            }, new View.OnClickListener() {
+//
+//                @Override
+//                public void onClick(View v) {
+//                    Toast.makeText(PlayActivity.this, "上一个", Toast.LENGTH_LONG).show();
+//                }
+//            });
         }
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.play_comment_recycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
